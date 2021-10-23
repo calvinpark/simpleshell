@@ -22,7 +22,10 @@ CompletedProcess(
 ```
 All calls are synchronous, therefore it's not possible to see the output until the command exits. This makes Simple Shell unsuitable for `tail`ing a log.
 
-## Install & Use
+## Install
+`$ python3 -m pip install simpleshell`
+
+## Use
 ```python
 from simpleshell import ss
 
