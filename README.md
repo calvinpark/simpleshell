@@ -21,6 +21,35 @@ CompletedProcess(
 >>>
 ```
 All calls are synchronous, therefore it's not possible to see the output until the command exits. This makes Simple Shell unsuitable for `tail`ing a log.
+
+## Install & Use
+```python
+from simpleshell import ss
+
+output = ss('ls -la')  # Prints the result on the screen through stdout
+
+pprint(vars(output))   # Prints the dict below
+{'args': 'ls -la',
+ 'returncode': 0,
+ 'stderr': [''],
+ 'stdout': ['total 28',
+            'drwxr-xr-x 13 calvin staff  416 Oct 23 00:08 .',
+            'drwxr-xr-x  7 calvin staff  224 Oct 22 16:56 ..',
+            'drwxr-xr-x 13 calvin staff  416 Oct 22 23:51 .git',
+            '-rw-r--r--  1 calvin staff   63 Oct 22 21:28 .gitignore',
+            'drwxr-xr-x  9 calvin staff  288 Oct 23 00:08 .idea',
+            '-rw-r--r--  1 calvin staff 1036 Oct 22 22:27 LICENSE',
+            '-rw-r--r--  1 calvin staff  287 Oct 22 23:24 Makefile',
+            '-rw-r--r--  1 calvin staff 4320 Oct 23 00:08 README.md',
+            'drwxr-xr-x  4 calvin staff  128 Oct 22 23:51 dist',
+            '-rw-r--r--  1 calvin staff  104 Oct 22 21:57 pyproject.toml',
+            '-rw-r--r--  1 calvin staff  594 Oct 22 23:50 setup.cfg',
+            'drwxr-xr-x  4 calvin staff  128 Oct 22 23:51 src',
+            'drwxr-xr-x  2 calvin staff   64 Oct 22 17:03 tests',
+            '']}
+
+```
+
 ## Return values
 ### On success
 `CompletedProcess` object with member variables `args`, `returncode`, `stdout`, `stderr`.
