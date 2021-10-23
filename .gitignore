@@ -1,0 +1,5 @@
+/.idea/
+/build/
+/dist/
+/src/simpleshell.egg-info/
+__pycache__/
