@@ -125,16 +125,25 @@ CompletedProcess(
 ```
 
 * ### `exit_on_error=True`
-When `False`, a command exiting with a non-`0` return code doesn't cause the `python3` process to exit. Afterward, `subprocess.CalledProcessError` exception object is returned so that the caller can further examine the error.
-```python
->>> output = ss('invalid command', exit_on_error=False)
-/bin/sh: invalid: command not found
+When `False`, a command exiting with a non-`0` return code doesn't cause the `python3` process to exit.
+Afterward, `subprocess.CalledProcessError` exception object is returned so that the caller can further examine the error.
 
+This is useful for using `grep` to monitor for something to disappear.
+In the below example, `grep` is waiting for `process_waiting_to_finish` process to complete and exit.
+```python
+>>> output = ss('ps | grep "[p]rocess_waiting_to_finish"', print_output_on_error=False, exit_on_error=False)
 >>> print(type(output))
 <class 'subprocess.CalledProcessError'>
->>> print(output)
-Command 'invalid command' returned non-zero exit status 127.
->>>
+>>> print(output.returncode)
+1
+```
+Examining the output's return code is important. In the below example, we have specified an invalid flag `-Y` to `grep`,
+and as a result `grep` exited with `2`. This is different from the previous example which exited with `1`,
+which signals that the error is about missing search results, as opposed to failing because of an invalid flag.
+```python
+>>> output = ss('ps | grep -Y "[p]rocess_waiting_to_finish"', print_output_on_error=False, exit_on_error=False)
+>>> print(output.returncode)
+2
 ```
 
 * ### `echo=False`

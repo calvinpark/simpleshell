@@ -12,5 +12,5 @@ uninstall:
 
 reinstall: clean build uninstall install
 
-publish:
+publish: clean build
 	python3 -m twine upload dist/*
